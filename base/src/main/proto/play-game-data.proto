@@ -1,0 +1,100 @@
+
+syntax = "proto2";
+
+option java_package = "com.vushnevskiy.gogon.proto";
+
+message GameList {
+  map<string, GameData> games = 1;
+  map<string, string> unpublished = 2;
+}
+
+message GameData {
+  repeated Move move = 1;
+  repeated Move redo = 7;
+  required GameConfiguration game_configuration = 2;
+  optional MatchEndStatus match_end_status = 3;
+  optional int32 version = 4 [default = 0];
+  optional string match_id = 5;
+  optional Color turn = 6;
+  optional int32 sequence_number = 9;
+
+  enum Phase {
+    UNKNOWN = 0;
+    INITIAL = 1;
+    CONFIGURATION = 2;
+    IN_GAME = 3;
+    DEAD_STONE_MARKING = 4;
+    FINISHED = 5;
+  }
+  optional Phase phase = 8 [default = UNKNOWN];
+}
+
+message Move {
+
+  enum MoveType {
+    MOVE = 0;
+    PASS = 1;
+  }
+
+  required MoveType type = 1;
+  optional Position position = 2;  // For MOVE.
+}
+
+message GameConfiguration {
+
+  enum ScoreType {
+    JAPANESE = 0;
+    CHINESE = 1;
+  }
+
+  required int32 board_size = 1;
+  required int32 handicap = 2;
+  required float komi = 3;
+  optional string black_id = 4 [deprecated=true];
+  optional string white_id = 5 [deprecated=true];
+  required ScoreType score_type = 6;
+  optional GoPlayer black = 7;
+  optional GoPlayer white = 8;
+  optional GameType game_type = 9;
+}
+
+message MatchEndStatus {
+  // If the player taps "Done" when the last_modifier is still the opponent, it's the end of stone
+  // marking phase.
+  optional Color last_modifier = 1;
+  optional Color turn = 2 [deprecated=true];
+
+  repeated Position dead_stone = 3;
+  optional bool game_finished = 4 [deprecated=true];
+  optional Score score = 5;
+}
+
+enum Color {
+  BLACK = 0;
+  WHITE = 1;
+}
+
+message Score {
+  required Color winner = 1;
+  optional bool resigned = 5;
+  optional float won_by = 2;
+  repeated Position black_territory = 3;
+  repeated Position white_territory = 4;
+}
+
+message Position {
+  required int32 x = 1;
+  required int32 y = 2;
+}
+
+message GoPlayer {
+  required string id = 1;
+  required string name = 2;
+  reserved 3;
+  optional bool is_local = 4;
+}
+
+enum GameType {
+  LOCAL = 1;
+  REMOTE = 2;
+}

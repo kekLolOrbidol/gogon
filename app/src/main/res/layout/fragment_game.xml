@@ -1,0 +1,21 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+  <ViewSwitcher
+      android:id="@+id/currentGameView"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+    <com.vushnevskiy.gogon.ui.GameConfigurationViewAndroid
+        android:id="@+id/configurationView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <com.vushnevskiy.gogon.ui.InGameViewAndroid
+        android:id="@+id/inGameView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    </ViewSwitcher>
+
+</FrameLayout>

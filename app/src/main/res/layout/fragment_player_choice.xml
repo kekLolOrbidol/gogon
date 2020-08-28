@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/default_gap">
+
+        <LinearLayout
+            android:id="@+id/game_type_selection_panel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/configure_game_button"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/Title"
+                android:gravity="center"
+                android:text="@string/choose_game_type_label" />
+
+            <RadioGroup
+                android:id="@+id/game_type_radio_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <RadioButton
+                    android:id="@+id/game_type_radio_local"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/game_type_local_label" />
+
+                <RadioButton
+                    android:id="@+id/game_type_radio_remote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:text="@string/game_type_remote_label" />
+            </RadioGroup>
+
+        </LinearLayout>
+
+    <Button
+        android:id="@+id/configure_game_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="12dip"
+        android:text="@string/configure_game_label" />
+</RelativeLayout>
